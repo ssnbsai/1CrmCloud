@@ -1,6 +1,5 @@
 ﻿using CRMCloud.Base;
 using OpenQA.Selenium;
-using PGSAEndToEndBaseProject.Extensions;
 
 namespace CRMCloud.Pages
 {
@@ -20,7 +19,7 @@ namespace CRMCloud.Pages
 
         public void ClickMainMenuLabel(string mainMenuLabelName)
         {
-            var _mainMenuLabelId = _parallelConfig.Driver.FindElement(By.XPath($"//a[@id='grouptab-1']//div[@class='menu-tab-label'][normalize-space()='{mainMenuLabelName}']"));
+            var _mainMenuLabelId = _parallelConfig.Driver.FindElement(By.XPath($"//a[contains(@id,'grouptab')]//div[@class='menu-tab-label'][normalize-space()='{mainMenuLabelName}']"));
             _parallelConfig.Driver.ClickAndWait(_mainMenuLabelId, WaitTime.LongWaitTime);
         }
 

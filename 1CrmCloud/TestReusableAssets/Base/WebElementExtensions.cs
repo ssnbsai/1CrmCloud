@@ -1,7 +1,11 @@
 ﻿using OpenQA.Selenium;
 using CRMCloud.Constants;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions;
+using System.Xml.Linq;
+using System.Threading;
 
-namespace PGSAEndToEndBaseProject.Extensions
+namespace CRMCloud.Base
 {
     public static class WebElementExtensions
     {
@@ -21,22 +25,19 @@ namespace PGSAEndToEndBaseProject.Extensions
             driver.Manage().Timeouts().ImplicitWait = (TimeSpan)timeout;
         }
 
-        public static bool WaitForElementIsVisible(this IWebElement element, int timeoutInSeconds = TimeoutInSeconds.ControlTimeout)
+        public static IWebElement WaitForElementIsVisible(this IWebDriver driver, By locator, int timeoutInSeconds = TimeoutInSeconds.ControlTimeout)
         {
-            var result = false;
-            var timeout = 0;
-            while (result == false)
-            {
-                if (timeout >= timeoutInSeconds)
-                {
-                    break;
-                }
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 30));
+            return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
 
-                Thread.Sleep(TimeoutInSeconds.OneSecond);
-                timeout += 1;
-                result = element.Displayed;
-            }
-            return result;
+        }
+
+        public static void MoveToElement(this IWebDriver driver, IWebElement element)
+        {
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element);
+            actions.Perform();
+            driver.Manage().Timeouts().ImplicitWait = (TimeSpan)TimeSpan.FromSeconds(5);
         }
 
     }

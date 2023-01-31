@@ -1,9 +1,8 @@
 ﻿using CRMCloud.Base;
 using CRMCloud.Pages;
 using OpenQA.Selenium;
-using PGSAEndToEndBaseProject.Extensions;
 
-namespace OSDataHubUIProject.Pages
+namespace CRMCloud.Pages
 {
     public class CRMCloudLoginPage:BasePage
     {
